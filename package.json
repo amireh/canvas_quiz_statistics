@@ -1,0 +1,66 @@
+{
+  "name": "canvas-quiz-statistics",
+  "description": "Quiz statistics app for Canvas the LMS.",
+  "version": "1.0.0",
+  "homepage": "https://github.com/amireh/canvas-quiz-statistics",
+  "author": {
+    "name": "Ahmad Amireh",
+    "email": "ahmad@instructure.com",
+    "url": "http://www.instructure.com"
+  },
+  "licenses": [],
+  "keywords": [
+    "canvas",
+    "lms"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amireh/canvas-quiz-statistics"
+  },
+  "bugs": {
+    "url": "https://github.com/amireh/canvas-quiz-statistics/issues"
+  },
+
+  "main": "www/assets/javascripts/app.js",
+
+  "scripts": {
+    "test": "grunt test"
+  },
+
+  "devDependencies": {
+    "glob": "x",
+    "grunt": "~0.4.1",
+    "grunt-bumpup": "0.2.x",
+    "grunt-connect-rewrite": "x",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-concat": "0.3.x",
+    "grunt-contrib-connect": "0.7.x",
+    "grunt-contrib-jasmine": "~0.6.5",
+    "grunt-contrib-jshint": "~0.6.1",
+    "grunt-contrib-less": "~0.11.x",
+    "grunt-contrib-requirejs": "x",
+    "grunt-contrib-symlink": "^0.3.0",
+    "grunt-contrib-watch": "0.6.x",
+    "grunt-jsduck": "1.x",
+    "grunt-jsvalidate": "0.2.x",
+    "grunt-newer": "^0.7.0",
+    "grunt-notify": "0.2.7",
+    "grunt-react": "x",
+    "grunt-string-replace": "0.2.x",
+    "grunt-tagrelease": "0.1.x",
+    "grunt-template-jasmine-requirejs": "git://github.com/amireh/grunt-template-jasmine-requirejs.git#0.2.0",
+    "jshint-stylish-ex": "^0.2.0",
+    "less": ">=1.7.4",
+    "react-tools": "x",
+    "shelljs": "~0.1.2",
+    "grunt-spritesmith": "^2.1.1",
+    "grunt-contrib-compress": "0.9.1",
+    "grunt-contrib-copy": "x",
+    "pixy": "x",
+    "jasmine-react": ">= 1.0.7",
+    "jasmine-rsvp": ">= 1.0.0",
+    "jquery": ">= 2.0.0",
+    "lodash": "x"
+  },
+  "dependencies": {}
+}
