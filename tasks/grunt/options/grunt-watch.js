@@ -9,18 +9,13 @@ module.exports = {
   },
 
   compiled_css: {
-    files: "dist/<%= grunt.pkg.name %>.css",
+    files: 'dist/*.css',
     tasks: [ 'noop' ],
     options: {
       livereload: {
-        port: 9124
+        port: 9224
       }
     }
-  },
-
-  docs: {
-    files: [ '.jsduck', 'doc/guides/**/*.md', 'doc/*.*' ],
-    tasks: [ 'docs', 'notify:docs' ]
   },
 
   jsx: {

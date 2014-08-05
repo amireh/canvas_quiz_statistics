@@ -9,6 +9,10 @@ define(function(require) {
     version: VERSION,
     mount: function(node) {
       layout = React.renderComponent(App(), node);
+    },
+
+    update: function(props) {
+      layout.setProps(props);
     }
   };
 });

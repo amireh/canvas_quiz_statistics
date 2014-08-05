@@ -23,5 +23,6 @@ exclude
 /www/dist
 /www/src
 /www/vendor
+/www/fixtures
 /src/js/config/environments/*.js
 /dist

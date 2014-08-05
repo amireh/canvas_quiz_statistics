@@ -24,7 +24,12 @@
 
       require([ 'canvas_quiz_statistics' ], function(App) {
         App.mount(document.body.querySelector('#app'));
+
+        require(['text!/fixtures/quiz_8.json'], function(fixture) {
+          App.update(JSON.parse(fixture));
+        });
       });
     </script>
+    <script src="//localhost:9224/livereload.js"></script>
  </body>
 </html>
