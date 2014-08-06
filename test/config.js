@@ -14,7 +14,8 @@ requirejs.config({
 
     // jQuery is needed by jasmine-react
     'jquery': '../../node_modules/jquery/dist/jquery',
-    'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react',
+    'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react.full',
+    'react': '../../node_modules/jasmine-react/dist/jasmine_react.full',
   },
 
   deps: [

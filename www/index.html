@@ -12,6 +12,7 @@
   <body>
     <script>
       requirejs.config({
+        catchError: true,
         baseUrl: '/src/js',
         map: {
           '*': {
@@ -20,6 +21,7 @@
         },
         deps: [ 'main' ]
       });
+
 
       require([ 'canvas_quiz_statistics' ], function(App) {
         window.App = App;

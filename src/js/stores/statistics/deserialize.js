@@ -3,6 +3,7 @@ define(function(require) {
   var K = require('../../constants');
   var _ = require('lodash');
   var pick = _.pick;
+  var findWhere = _.findWhere;
   var camelize = convertCase.camelize;
 
   var extract = function(set, keys) {
@@ -24,7 +25,15 @@ define(function(require) {
       extract(payload.submission_statistics, K.SUBMISSION_STATISTICS_ATTRS);
 
     props.questionStatistics = (payload.question_statistics || []).map(function(questionStatistics) {
-      return extract(questionStatistics, K.QUESTION_STATISTICS_ATTRS);
+      var props = extract(questionStatistics, K.QUESTION_STATISTICS_ATTRS);
+
+      if (props.pointBiserials) {
+        props.discriminationIndex = findWhere(props.pointBiserials, {
+          correct: true
+        }).point_biserial;
+      }
+
+      return props;
     });
 
     props.quizStatistics = extract(payload, K.QUIZ_STATISTICS_ATTRS);

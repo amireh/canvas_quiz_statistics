@@ -5,6 +5,7 @@ define(function(require) {
   var Question = require('jsx!../question');
   var CorrectAnswerDonut = require('jsx!../charts/correct_answer_donut');
   var AnswerBars = require('jsx!../charts/answer_bars');
+  var DiscriminationIndex = require('jsx!../charts/discrimination_index');
   var RatioCalculator = require('../../util/ratio_calculator');
   var round = require('../../util/round');
 
@@ -89,6 +90,17 @@ define(function(require) {
 
             <section className="answer-distribution-section">
               <AnswerBars answers={this.props.answers} />
+            </section>
+            <section className="discrimination-index-section">
+              <DiscriminationIndex
+                discriminationIndex={this.props.discriminationIndex}
+                topStudentCount={this.props.topStudentCount}
+                middleStudentCount={this.props.middleStudentCount}
+                bottomStudentCount={this.props.bottomStudentCount}
+                correctTopStudentCount={this.props.correctTopStudentCount}
+                correctMiddleStudentCount={this.props.correctMiddleStudentCount}
+                correctBottomStudentCount={this.props.correctBottomStudentCount}
+                />
             </section>
 
           </div>

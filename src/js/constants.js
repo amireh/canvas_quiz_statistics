@@ -1,5 +1,7 @@
 define(function() {
   return {
+    DISCRIMINATION_INDEX_THRESHOLD: 0.25,
+
     // a whitelist of the attributes we need from the payload
     QUIZ_STATISTICS_ATTRS: [
       'id',
@@ -23,7 +25,15 @@ define(function() {
       'question_text',
       'responses',
       'answers',
-      'answered_student_count'
+      'answered_student_count',
+
+      'top_student_count',
+      'middle_student_count',
+      'bottom_student_count',
+      'correct_top_student_count',
+      'correct_middle_student_count',
+      'correct_bottom_student_count',
+      'point_biserials'
     ],
   };
 });
