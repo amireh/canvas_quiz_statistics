@@ -8,7 +8,7 @@ module.exports = {
       compress: false
     },
     files: {
-      "dist/<%= grunt.pkg.name %>.css": "src/css/app.less",
+      "dist/<%= grunt.moduleId %>.css": "src/css/app.less",
     }
   }
 };

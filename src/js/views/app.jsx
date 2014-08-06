@@ -3,7 +3,7 @@ define(function(require) {
   var React = require('react');
   var Summary = require('jsx!./statistics/summary');
   var I18n = require('i18n!quiz_statistics');
-  var _ = require('underscore');
+  var _ = require('lodash');
 
   var extend = _.extend;
   var QuestionRenderer = require('jsx!./statistics/question');

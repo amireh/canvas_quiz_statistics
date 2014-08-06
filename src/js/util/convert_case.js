@@ -1,5 +1,6 @@
 define(function(require) {
-  var InflectionJS = require('inflection');
+  var Inflections = require('./inflections');
+  var camelizeStr = Inflections.camelize;
 
   var convertProp = function(props, key, converter) {
     if (props[key] !== undefined) {
@@ -15,42 +16,18 @@ define(function(require) {
   };
 
   return {
+    // Convert all property keys in an object to camelCase
     camelize: function(props) {
       var prop;
       var attrs = {};
 
       for (prop in props) {
         if (props.hasOwnProperty(prop)) {
-          attrs[prop.underscore().camelize(true)] = props[prop];
+          attrs[camelizeStr(prop, true)] = props[prop];
         }
       }
 
       return attrs;
     },
-
-    underscore: function(props) {
-      var prop;
-      var attrs = {};
-
-      for (prop in props) {
-        if (props.hasOwnProperty(prop)) {
-          attrs[prop.underscore()] = props[prop];
-        }
-      }
-
-      return attrs;
-    },
-
-    toString: function(props, key) {
-      convertProp(props, key, function(value) {
-        return ''+value;
-      });
-    },
-
-    toInteger: function(props, key) {
-      convertProp(props, key, function(value) {
-        return parseInt(value, 10);
-      });
-    }
   };
 });

@@ -1,4 +1,5 @@
-define([ 'underscore' ], function(_) {
+define(function(require) {
+  var _ = require('lodash');
   var extend = _.extend;
 
   var MULTIPLE_ANSWERS = 'multiple_answers_question';

@@ -1,8 +1,7 @@
-define([
-  'underscore',
-  './config/environments/production',
-  './config/environments/development'
-], function(_, ProductionConfig, DevelopmentConfig) {
+define(function(require) {
+  var _ = require('lodash');
+  var ProductionConfig = require('./config/environments/production');
+  var DevelopmentConfig = require('./config/environments/development');
   var config = ProductionConfig || {};
 
   //>>excludeStart("production", pragmas.production);

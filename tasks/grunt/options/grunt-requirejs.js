@@ -25,23 +25,43 @@ var baseOptions = {
     'lodash': 'empty:',
     'react': 'empty:',
     'd3': 'empty:',
-    'inflection': 'empty:',
   },
 
   wrap: {
-    start: "/** <%= grunt.pkg.name %> <%= grunt.pkg.version %> */\n",
+    start: "/* <%= grunt.moduleId %> <%= grunt.pkg.version %> */\n",
   },
 
   rawText: {
   },
 
   name: "<%= grunt.moduleId %>",
-  // create: true,
   include: [ "<%= grunt.moduleId %>/boot" ],
   exclude: [ 'text', 'jsx' ],
 
   onBuildWrite: function (moduleName, path, singleContents) {
     return singleContents.replace(/(text!|jsx!)/g, '');
+  }
+};
+
+var minifiedOptions = {
+  optimize: 'uglify2',
+
+  uglify2: {
+    warnings: true,
+    mangle:   true,
+
+    output: {
+      beautify: false
+    },
+
+    compress: {
+      sequences:  true,
+      dead_code:  true,
+      loops:      true,
+      unused:     true,
+      if_return:  true,
+      join_vars:  true
+    }
   }
 };
 
@@ -52,32 +72,13 @@ module.exports = {
   debug: {
     options: extend({}, baseOptions, {
       optimize: 'none',
-      out: "dist/<%= grunt.pkg.name %>-<%= grunt.pkg.version %>.js",
+      out: "dist/<%= grunt.moduleId %>.js",
     })
   },
 
-  minfied: {
-    options: extend({}, baseOptions, {
-      optimize: 'uglify2',
-      out: "dist/<%= grunt.pkg.name %>-<%= grunt.pkg.version %>.min.js",
-
-      uglify2: {
-        warnings: true,
-        mangle:   true,
-
-        output: {
-          beautify: false
-        },
-
-        compress: {
-          sequences:  true,
-          dead_code:  true,
-          loops:      true,
-          unused:     true,
-          if_return:  true,
-          join_vars:  true
-        }
-      },
+  minified: {
+    options: extend({}, baseOptions, minifiedOptions, {
+      out: "dist/<%= grunt.moduleId %>.min.js",
     })
-  }
+  },
 };

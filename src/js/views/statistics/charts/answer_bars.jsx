@@ -2,7 +2,7 @@
 define(function(require) {
   var React = require('react');
   var d3 = require('d3');
-  var _ = require('underscore');
+  var _ = require('lodash');
   var mapBy = _.map;
   var findWhere = _.findWhere;
   var compact = _.compact;
