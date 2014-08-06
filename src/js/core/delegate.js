@@ -43,6 +43,10 @@ define(function(require) {
     layout.setProps(props);
   };
 
+  var reload = function() {
+    controller.load();
+  };
+
   var unmount = function() {
     if (isMounted()) {
       controller.stop();
@@ -51,10 +55,12 @@ define(function(require) {
     }
   };
 
+
   exports.configure = configure;
   exports.mount = mount;
   exports.isMounted = isMounted;
   exports.update = update;
+  exports.reload = reload;
   exports.unmount = unmount;
 
   return exports;

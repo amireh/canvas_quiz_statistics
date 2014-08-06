@@ -8,6 +8,7 @@ define(function(require) {
   exports.mount = delegate.mount;
   exports.isMounted = delegate.isMounted;
   exports.update = delegate.update;
+  exports.reload = delegate.reload;
   exports.unmount = delegate.unmount;
   exports.version = VERSION;
   exports.config = config;

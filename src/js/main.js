@@ -27,9 +27,7 @@ requirejs.config({
 
   jsx: {
     fileExtension: '.jsx'
-  },
-
-  waitSeconds: 20
+  }
 });
 
 require([ 'boot' ]);

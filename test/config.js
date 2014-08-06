@@ -23,6 +23,8 @@ requirejs.config({
     'jasmine_rsvp'
   ],
 
+  waitSeconds: 1,
+
   callback: function() {
     this.__TESTING__ = true;
 

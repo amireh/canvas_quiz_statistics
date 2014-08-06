@@ -6,27 +6,30 @@ define(function(require) {
   var quizStatisticsFixture = require('json!fixtures/quiz_statistics.json');
 
   describe('Stores.Statistics', function() {
-    var onChange;
-
     this.promiseSuite = true;
 
-    beforeEach(function() {
-      onChange = jasmine.createSpy('onChange');
+    afterEach(function() {
       Subject.__reset__();
     });
 
     describe('#load', function() {
       it('should work', function() {
+        var onChange = jasmine.createSpy('onChange');
+        var quizStats;
+
         config.quizStatisticsUrl = '/foobar';
         spyOn(Adapter, 'request').and.returnValue(RSVP.resolve(quizStatisticsFixture));
         Subject.addChangeListener(onChange);
         Subject.load();
 
-        expect(Subject.get()).toBeFalsy();
+        expect(Subject.getQuizStatistics()).toBeFalsy();
 
         this.flush();
 
-        expect(Subject.get()).toBeTruthy();
+        quizStats = Subject.getQuizStatistics();
+
+        expect(quizStats).toBeTruthy();
+        expect(quizStats.id).toEqual('200');
         expect(onChange).toHaveBeenCalled();
       });
     });
