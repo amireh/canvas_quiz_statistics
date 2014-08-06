@@ -24,5 +24,5 @@ exclude
 /www/src
 /www/vendor
 /www/fixtures
-/src/js/config/environments/*.js
+/src/js/config/environments/development.js
 /dist

@@ -1,5 +1,4 @@
 var grunt = require('grunt');
-var moduleId = grunt.moduleId;
 var _ = require('lodash');
 var extend = _.extend;
 
@@ -17,7 +16,7 @@ var baseOptions = {
   },
 
   jsx: {
-    moduleId: moduleId
+    moduleId: grunt.moduleId
   },
 
   paths: {
@@ -39,7 +38,7 @@ var baseOptions = {
   exclude: [ 'text', 'jsx', 'i18n' ],
 
   onBuildWrite: function (moduleName, path, singleContents) {
-    return singleContents.replace(/(text!|jsx!)/g, '').replace(",'./initializers/debug'", '');
+    return singleContents.replace(/(text!|jsx!)/g, '');
   }
 };
 
@@ -65,11 +64,9 @@ var minifiedOptions = {
   }
 };
 
+// Alias "boot" to the module id:
 baseOptions.rawText[grunt.moduleId] =
   "define(['<%= grunt.moduleId %>/boot'], function(arg) { return arg; });"
-
-baseOptions.rawText[grunt.moduleId + '/config/initializers/debug'] =
-  "define([], {});"
 
 module.exports = {
   debug: {
