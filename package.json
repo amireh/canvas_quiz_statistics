@@ -2,7 +2,7 @@
   "name": "canvas-quiz-statistics",
   "description": "Quiz statistics app for Canvas the LMS.",
   "version": "1.0.0",
-  "homepage": "https://github.com/amireh/canvas-quiz-statistics",
+  "homepage": "https://github.com/amireh/canvas_quiz_statistics",
   "author": {
     "name": "Ahmad Amireh",
     "email": "ahmad@instructure.com",
@@ -15,10 +15,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/amireh/canvas-quiz-statistics"
+    "url": "git://github.com/amireh/canvas_quiz_statistics"
   },
   "bugs": {
-    "url": "https://github.com/amireh/canvas-quiz-statistics/issues"
+    "url": "https://github.com/amireh/canvas_quiz_statistics/issues"
   },
 
   "main": "www/assets/javascripts/app.js",
