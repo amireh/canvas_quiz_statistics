@@ -4,6 +4,7 @@ define(function(require) {
   var delegate = require('./core/delegate');
   var exports = {};
 
+  exports.configure = delegate.configure;
   exports.mount = delegate.mount;
   exports.isMounted = delegate.isMounted;
   exports.update = delegate.update;

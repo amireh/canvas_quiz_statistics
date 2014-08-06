@@ -9,6 +9,10 @@ define(function(require) {
   var layout;
   var exports = {};
 
+  var configure = function(options) {
+    extend(config, options);
+  };
+
   /**
    * Start the app and perform any necessary data loading.
    *
@@ -22,9 +26,8 @@ define(function(require) {
    *         Fulfilled when the app has been started and rendered.
    */
   var mount = function(node, options) {
-    extend(config, options, {
-      container: node
-    });
+    configure(options);
+    config.container = node;
 
     return initialize().then(function() {
       layout = React.renderComponent(Layout(), config.container);
@@ -48,6 +51,7 @@ define(function(require) {
     }
   };
 
+  exports.configure = configure;
   exports.mount = mount;
   exports.isMounted = isMounted;
   exports.update = update;

@@ -2,14 +2,6 @@
 
 A quiz statistics mini-app for Canvas, the LMS by Instructure.
 
-## Development
-
-    - `npm install`
-    - `grunt` to run the watcher for linting, CSS compilation, and tests
-    - `grunt server` to launch a Connect server at [http://localhost:8000]
-    - `grunt build` to build a production-ready version of the app
-    - `grunt test` to run the tests
-
 ## Dependencies
 
 1. React
@@ -21,11 +13,11 @@ A quiz statistics mini-app for Canvas, the LMS by Instructure.
 
 Here's a list of the lodash methods that are currently used by CQS:
 
-    * _.compact
-    * _.extend
-    * _.findWhere
-    * _.map
-    * _.merge
+* _.compact
+* _.extend
+* _.findWhere
+* _.map
+* _.merge
 
 You can generate this list by running `grunt report:lodash_methods`.
 
@@ -100,6 +92,91 @@ define([ 'require', 'ember', 'react' ], function(require, Ember, React) {
       }
     }.on('willRemoveElement')
   });
+});
+```
+
+## Development
+
+    - `npm install`
+    - `grunt` to run the watcher for linting, CSS compilation, and tests
+    - `grunt server` to launch a Connect server at [http://localhost:8000]
+    - `grunt build` to build a production-ready version of the app
+    - `grunt test` to run the tests
+
+### r.js: all paths must be relative to current module
+
+Do not require dependencies using an absolute path (e.g, relative to `baseUrl`) because that will bork the optimizer's output. We need all modules to be prefixed by `canvas_quiz_statistics/` in order not to clash with Canvas modules, as such:
+
+```javascript
+// in src/js/core/something.js
+
+// BAD: don't do this
+define([ 'core/something_else' ], function() {});
+
+// GOOD
+define([ './something_else' ], function() {});
+```
+
+### Working with JSX
+
+You don't need to pre-compile or anything, using the `jsx` r.js loader will take care of compiling JSX on-the-fly as you develop, and will precompile when you optimize using `grunt build`.
+
+Requiring components should be done as follows:
+
+```javascript
+require([ 'jsx!./path/to/component' ], function(Component) {
+});
+```
+
+#### Testing components
+
+Check out [jasmine_react](https://github.com/amireh/jasmine_react) for a boost on testing React components in Jasmine, and the specs in `test/unit/{views,components}`.
+
+**What to test**
+
+  - that the component (un)mounts fine initially without any custom props
+  - branches that causes the component's state to change are behaving as expected
+  - action emitters: code that triggers any `sendAction()` calls, and a verification of the parameters emitted
+  - any funny thing happening in the component's life cycle hooks
+
+You can stub component methods normally as you would other objects, sometimes you'll need to stub the `type` instead. Also, [jasmine_react](https://github.com/amireh/jasmine_react) provides a set of DOM helpers for finding elements, clicking, checking radio and checkboxes, simulating keyboard-input or typing in text, selecting values in a dropdown, and a few other things.
+
+**What not to test**
+
+  - JavaScript features (really!), like testing
+    `{this.state.something ? "true" : "false"}`
+  is just silly, you're testing the ternary operator then, instead cover the code that manipulates `this.state.something`
+  - React features, like testing if the component starts with the default props you specified in getDefaultProps() or getInitialState()
+  - whether the component breaks if it receives bad props
+
+### I18n work
+
+In order for things to be wired correctly, you must follow the same API Canvas uses for JavaScript I18n. Here is a sample:
+
+```javascript
+define(function(require) {
+  // Get a translation scope:
+  var I18n = require('i18n!quiz_statistics');
+
+  // Variant 1: simple key-value
+  I18n.t('hello', 'Hello.'); // => Hello.
+
+  // Variant 2: using a variable
+  I18n.t('hello', 'Hello %{name}.', {
+    name: 'Ahmad'
+  }); // => Hello Ahmad.
+
+  // BAD: don't do this!
+  I18n.t('hello', {
+    defaultValue: 'Hello %{name}.',
+    name: 'Ahmad'
+  }); // => Hello %{name}Ahmad.
+
+  // BAD: don't do this!
+  var t = I18n.t;
+  t('hello', 'Hello.');
+  // raises an error, either use I18n.t directly as shown above, or:
+  t = I18n.t.bind(I18n);
 });
 ```
 

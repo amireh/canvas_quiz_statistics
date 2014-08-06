@@ -49,13 +49,13 @@ define(function(require) {
 
     render: function() {
       var crr = this.state.correctResponseRatio;
-      var attemptsLabel = I18n.t('attempts', {
-        defaultValue: 'Attempts: %{count} out of %{total}',
+      var attemptsLabel = I18n.t('attempts', 'Attempts: %{count} out of %{total}', {
         count: this.props.answeredStudentCount,
         total: this.props.participantCount
       });
-      var correctResponseRatioLabel = I18n.t('correct_response_ratio', {
-        defaultValue: '%{ratio}% of your students correctly answered this question.',
+
+      var correctResponseRatioLabel = I18n.t('correct_response_ratio',
+        '%{ratio}% of your students correctly answered this question.', {
         ratio: round(crr * 100.0, 0)
       });
 
