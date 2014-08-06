@@ -1,13 +1,13 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('react');
-  var Summary = require('jsx!./statistics/summary');
+  var Summary = require('jsx!./summary');
   var I18n = require('i18n!quiz_statistics');
   var _ = require('lodash');
 
   var extend = _.extend;
-  var QuestionRenderer = require('jsx!./statistics/question');
-  var MultipleChoiceRenderer = require('jsx!./statistics/questions/multiple_choice');
+  var QuestionRenderer = require('jsx!./question');
+  var MultipleChoiceRenderer = require('jsx!./questions/multiple_choice');
   var Renderers = {
     'multiple_choice_question': MultipleChoiceRenderer
   };

@@ -5,8 +5,8 @@ define(function(require) {
   var Question = require('jsx!../question');
   var CorrectAnswerDonut = require('jsx!../charts/correct_answer_donut');
   var AnswerBars = require('jsx!../charts/answer_bars');
-  var RatioCalculator = require('../../../util/ratio_calculator');
-  var round = require('../../../util/round');
+  var RatioCalculator = require('../../util/ratio_calculator');
+  var round = require('../../util/round');
 
   var MultipleChoice = React.createClass({
     getInitialState: function() {

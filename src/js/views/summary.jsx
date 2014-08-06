@@ -2,8 +2,8 @@
 define(function(require) {
   var React = require('react');
   var I18n = require('i18n!statistics/summary');
-  var secondsToTime = require('../../util/seconds_to_time');
-  var round = require('../../util/round');
+  var secondsToTime = require('../util/seconds_to_time');
+  var round = require('../util/round');
 
   var Summary = React.createClass({
     getDefaultProps: function() {
