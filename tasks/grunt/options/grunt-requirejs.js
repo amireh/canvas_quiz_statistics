@@ -36,7 +36,7 @@ var baseOptions = {
 
   name: "<%= grunt.moduleId %>",
   include: [ "<%= grunt.moduleId %>/boot" ],
-  exclude: [ 'text', 'jsx' ],
+  exclude: [ 'text', 'jsx', 'i18n' ],
 
   onBuildWrite: function (moduleName, path, singleContents) {
     return singleContents.replace(/(text!|jsx!)/g, '').replace(",'./initializers/debug'", '');

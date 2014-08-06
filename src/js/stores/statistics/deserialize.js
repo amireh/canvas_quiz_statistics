@@ -1,30 +1,13 @@
 define(function(require) {
   var convertCase = require('../../util/convert_case');
+  var K = require('../../constants');
   var _ = require('lodash');
   var pick = _.pick;
   var camelize = convertCase.camelize;
 
-  // A whitelist of the attributes we need from the payload.
-  var QUIZ_STATISTICS_ATTRS = [
-    'id'
-  ];
-
-  var SUBMISSION_STATISTICS_ATTRS = [
-    'score_average',
-    'score_high',
-    'score_low',
-    'score_stdev',
-    'duration_average',
-    'unique_count'
-  ];
-
-  var QUESTION_STATISTICS_ATTRS = [
-    'id',
-    'question_type',
-    'question_text',
-    'responses',
-    'answers'
-  ];
+  var extract = function(set, keys) {
+    return camelize(pick(set || {}, keys));
+  };
 
   return function deserialize(payload) {
     var props = {};
@@ -37,13 +20,14 @@ define(function(require) {
       }
     }
 
-    props.submissionStatistics = camelize(pick(payload.submission_statistics, SUBMISSION_STATISTICS_ATTRS));
+    props.submissionStatistics =
+      extract(payload.submission_statistics, K.SUBMISSION_STATISTICS_ATTRS);
 
     props.questionStatistics = (payload.question_statistics || []).map(function(questionStatistics) {
-      return pick(questionStatistics, QUESTION_STATISTICS_ATTRS);
-    }).map(camelize);
+      return extract(questionStatistics, K.QUESTION_STATISTICS_ATTRS);
+    });
 
-    props.quizStatistics = pick(payload, QUIZ_STATISTICS_ATTRS);
+    props.quizStatistics = extract(payload, K.QUIZ_STATISTICS_ATTRS);
 
     return props;
   };

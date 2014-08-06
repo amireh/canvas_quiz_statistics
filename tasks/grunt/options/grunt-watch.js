@@ -5,12 +5,15 @@ module.exports = {
 
   css: {
     files: '{src,vendor}/css/**/*.{less,css}',
-    tasks: [ 'less', 'notify:less' ]
+    tasks: [ 'less' ],
+    options: {
+      spawn: true
+    }
   },
 
   compiled_css: {
     files: 'dist/*.css',
-    tasks: [ 'noop' ],
+    tasks: [ 'noop', 'notify:less' ],
     options: {
       livereload: {
         port: 9224

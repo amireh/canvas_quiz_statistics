@@ -15,7 +15,6 @@ define(function(require) {
   var Statistics = React.createClass({
     getDefaultProps: function() {
       return {
-        quiz: {},
         quizStatistics: {},
         submissionStatistics: {},
         questionStatistics: [],
@@ -28,10 +27,10 @@ define(function(require) {
       var questionStatistics = props.questionStatistics;
 
       return(
-        <div id="quiz-statistics">
+        <div id="canvas-quiz-statistics">
           <section>
             <Summary
-              pointsPossible={props.quiz.pointsPossible}
+              pointsPossible={props.quizStatistics.pointsPossible}
               scoreAverage={submissionStatistics.scoreAverage}
               scoreHigh={submissionStatistics.scoreHigh}
               scoreLow={submissionStatistics.scoreLow}
