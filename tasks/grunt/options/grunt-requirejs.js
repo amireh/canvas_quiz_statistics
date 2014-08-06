@@ -39,7 +39,7 @@ var baseOptions = {
   exclude: [ 'text', 'jsx' ],
 
   onBuildWrite: function (moduleName, path, singleContents) {
-    return singleContents.replace(/(text!|jsx!)/g, '');
+    return singleContents.replace(/(text!|jsx!)/g, '').replace(",'./initializers/debug'", '');
   }
 };
 
@@ -67,6 +67,9 @@ var minifiedOptions = {
 
 baseOptions.rawText[grunt.moduleId] =
   "define(['<%= grunt.moduleId %>/boot'], function(arg) { return arg; });"
+
+baseOptions.rawText[grunt.moduleId + '/config/initializers/debug'] =
+  "define([], {});"
 
 module.exports = {
   debug: {

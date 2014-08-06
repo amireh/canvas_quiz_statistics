@@ -4,7 +4,15 @@ define(function(require) {
 
   var deserialize = function(payload) {
     var props = {};
-    var quizStats = payload.quiz_statistics || {};
+    var quizStats = payload;
+
+    if (payload.hasOwnProperty('quiz_statistics')) {
+      quizStats = payload.quiz_statistics;
+
+      if (Array.isArray(quizStats)) {
+        quizStats = quizStats[0];
+      }
+    }
 
     props.submissionStatistics = camelize(quizStats.submission_statistics);
     props.questionStatistics = (quizStats.question_statistics || []).map(camelize);

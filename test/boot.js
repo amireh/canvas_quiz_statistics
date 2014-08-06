@@ -2,5 +2,5 @@
 localStorage.clear();
 
 require([ 'config/initializer' ], function(initialize) {
-  initialize.then(launchTests);
+  initialize().then(launchTests);
 });

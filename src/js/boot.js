@@ -1,41 +1,15 @@
 define(function(require) {
-  var React = require('react');
-  var initialize = require('./config/initializer');
-  var Layout = require('jsx!./views/app');
   var VERSION = require('./version');
-  var deserialize = require('./core/deserializer');
-  var container;
-  var layout;
-  var singleton;
+  var config = require('./config');
+  var delegate = require('./core/delegate');
+  var exports = {};
 
-  var CQS = function() {
-    return this;
-  };
+  exports.mount = delegate.mount;
+  exports.isMounted = delegate.isMounted;
+  exports.update = delegate.update;
+  exports.unmount = delegate.unmount;
+  exports.version = VERSION;
+  exports.config = config;
 
-  CQS.prototype = {
-    version: VERSION,
-
-    mount: function(node) {
-      container = node;
-      layout = React.renderComponent(Layout(), container);
-    },
-
-    isMounted: function() {
-      return !!layout;
-    },
-
-    update: function(props) {
-      layout.setProps(deserialize(props));
-    },
-
-    unmount: function() {
-      if (this.isMounted()) {
-        return this.unmount();
-      }
-    }
-  };
-
-  singleton = new CQS();
-
-  return singleton;
+  return exports;
 });

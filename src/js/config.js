@@ -8,5 +8,15 @@ define(function(require) {
   _.merge(config, DevelopmentConfig || {});
   //>>excludeEnd("production");
 
+  /**
+   * @cfg {Function} ajax
+   * An XHR request processor that has an API compatible with jQuery.ajax.
+   */
+  config.ajax = undefined;
+
+  config.quizStatisticsUrl = undefined;
+
+  config.loadOnStartup = true;
+
   return config;
 });

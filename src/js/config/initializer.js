@@ -1,10 +1,12 @@
-define([
-  'rsvp',
-  './initializers/d3',
+define(function(require) {
+  var RSVP = require('rsvp');
+  var d3 = require('./initializers/d3');
+
   //>>excludeStart("production", pragmas.production);
-  , './initializers/debug'
+  var DEBUG = require('./initializers/debug');
   //>>excludeEnd("production");
-],
-function(RSVP) {
-  return RSVP.resolve();
+
+  return function initializeApp() {
+    return RSVP.resolve();
+  };
 });
