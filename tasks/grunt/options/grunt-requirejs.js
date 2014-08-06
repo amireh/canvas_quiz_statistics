@@ -32,8 +32,11 @@ var baseOptions = {
     start: "/** <%= grunt.pkg.name %> <%= grunt.pkg.version %> */\n",
   },
 
+  rawText: {
+  },
+
   name: "<%= grunt.moduleId %>",
-  create: true,
+  // create: true,
   include: [ "<%= grunt.moduleId %>/boot" ],
   exclude: [ 'text', 'jsx' ],
 
@@ -41,6 +44,9 @@ var baseOptions = {
     return singleContents.replace(/(text!|jsx!)/g, '');
   }
 };
+
+baseOptions.rawText[grunt.moduleId] =
+  "define(['<%= grunt.moduleId %>/boot'], function(arg) { return arg; });"
 
 module.exports = {
   debug: {

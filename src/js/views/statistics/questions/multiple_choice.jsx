@@ -1,9 +1,10 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('react');
-  var t = require('i18n!quiz_statistics');
+  var I18n = require('i18n!quiz_statistics');
   var Question = require('jsx!../question');
   var CorrectAnswerDonut = require('jsx!../charts/correct_answer_donut');
+  var AnswerBars = require('jsx!../charts/answer_bars');
   var RatioCalculator = require('../../../util/ratio_calculator');
   var round = require('../../../util/round');
 
@@ -48,11 +49,12 @@ define(function(require) {
 
     render: function() {
       var crr = this.state.correctResponseRatio;
-      var attemptsLabel = t('attempts', 'Attempts: __count__ out of __total__', {
+      var attemptsLabel = I18n.t('attempts', {
+        defaultValue: 'Attempts: %{count} out of %{total}',
         count: this.props.answeredStudentCount,
         total: this.props.participantCount
       });
-      var correctResponseRatioLabel = t('correct_response_ratio', {
+      var correctResponseRatioLabel = I18n.t('correct_response_ratio', {
         defaultValue: '%{ratio}% of your students correctly answered this question.',
         ratio: round(crr * 100.0, 0)
       });
@@ -80,10 +82,15 @@ define(function(require) {
             <section className="correct-answer-ratio-section">
               <CorrectAnswerDonut
                 correctResponseRatio={this.state.correctResponseRatio}>
-                <p><strong>{t('correct_answer', 'Correct answer')}</strong></p>
+                <p><strong>{I18n.t('correct_answer', 'Correct answer')}</strong></p>
                 <p>{correctResponseRatioLabel}</p>
               </CorrectAnswerDonut>
             </section>
+
+            <section className="answer-distribution-section">
+              <AnswerBars answers={this.props.answers} />
+            </section>
+
           </div>
         </Question>
       );

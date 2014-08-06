@@ -41,7 +41,7 @@ define([ 'react' ], function(I18n, React) {
         });
       };
 
-      onLoad(t);
+      onLoad({ t: t });
     }
   };
 });

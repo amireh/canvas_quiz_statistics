@@ -2,9 +2,8 @@
 define(function(require) {
   var React = require('react');
   var Summary = require('jsx!./statistics/summary');
-  var t = require('i18n!quiz_statistics');
+  var I18n = require('i18n!quiz_statistics');
   var _ = require('underscore');
-  var deserialize = require('../core/deserializer');
 
   var extend = _.extend;
   var QuestionRenderer = require('jsx!./statistics/question');
@@ -16,24 +15,28 @@ define(function(require) {
   var Statistics = React.createClass({
     getDefaultProps: function() {
       return {
-        quiz_statistics: [],
-        quiz: {}
+        quiz: {},
+        quizStatistics: {},
+        submissionStatistics: {},
+        questionStatistics: [],
       };
     },
 
     render: function() {
-      var props = deserialize(this.props);
+      var props = this.props;
+      var submissionStatistics = props.submissionStatistics;
+      var questionStatistics = props.questionStatistics;
 
       return(
         <div id="quiz-statistics">
           <section>
             <Summary
               pointsPossible={props.quiz.pointsPossible}
-              scoreAverage={props.submissionStatistics.scoreAverage}
-              scoreHigh={props.submissionStatistics.scoreHigh}
-              scoreLow={props.submissionStatistics.scoreLow}
-              scoreStdev={props.submissionStatistics.scoreStdev}
-              durationAverage={props.submissionStatistics.durationAverage}
+              scoreAverage={submissionStatistics.scoreAverage}
+              scoreHigh={submissionStatistics.scoreHigh}
+              scoreLow={submissionStatistics.scoreLow}
+              scoreStdev={submissionStatistics.scoreStdev}
+              durationAverage={submissionStatistics.durationAverage}
               quizReports={[]}
               />
           </section>
@@ -41,14 +44,14 @@ define(function(require) {
           <section id="question-statistics-section">
             <header className="padded">
               <h3 className="section-title inline">
-                {t('question_breakdown', 'Question Breakdown')}
+                {I18n.t('question_breakdown', 'Question Breakdown')}
               </h3>
 
               <aside className="pull-right">
               </aside>
             </header>
 
-            {props.questionStatistics.map(this.renderQuestion.bind(null, props))}
+            {questionStatistics.map(this.renderQuestion.bind(null, props))}
           </section>
         </div>
       );

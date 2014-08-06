@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('react');
-  var t = require('i18n!statistics/summary');
+  var I18n = require('i18n!statistics/summary');
   var secondsToTime = require('../../util/seconds_to_time');
   var round = require('../../util/round');
 
@@ -33,7 +33,7 @@ define(function(require) {
       return(
         <div id="summary-statistics">
           <header className="padded">
-            <h3 className="section-title inline">{t('quiz_summary', 'Quiz Summary')}</h3>
+            <h3 className="section-title inline">{I18n.t('quiz_summary', 'Quiz Summary')}</h3>
 
             <aside className="pull-right">
               {this.props.quizReports.map(this.renderReport)}
@@ -45,23 +45,23 @@ define(function(require) {
               <tr>
                 <th>
                   <i className="icon-quiz-stats-avg"></i>
-                  {t('stats_mean', 'Avg Score')}
+                  {I18n.t('stats_mean', 'Avg Score')}
                 </th>
                 <th>
                   <i className="icon-quiz-stats-high"></i>
-                  {t('stats_high', 'High Score')}
+                  {I18n.t('stats_high', 'High Score')}
                 </th>
                 <th>
                   <i className="icon-quiz-stats-low"></i>
-                  {t('stats_low', 'Low Score')}
+                  {I18n.t('stats_low', 'Low Score')}
                 </th>
                 <th>
                   <i className="icon-quiz-stats-deviation"></i>
-                  {t('stats_stdev', 'Std. Deviation')}
+                  {I18n.t('stats_stdev', 'Std. Deviation')}
                 </th>
                 <th>
                   <i className="icon-quiz-stats-time"></i>
-                  {t('stats_avg_time', 'Avg Time')}
+                  {I18n.t('stats_avg_time', 'Avg Time')}
                 </th>
               </tr>
             </thead>
