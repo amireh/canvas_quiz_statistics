@@ -90,6 +90,8 @@
     "subject": false,
     "find": false,
     "click": false,
-    "fillIn": false
+    "fillIn": false,
+    "setProps": false,
+    "findAll": false
   }
 }

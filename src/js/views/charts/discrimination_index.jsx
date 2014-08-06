@@ -5,27 +5,21 @@ define(function(require) {
   var K = require('../../constants');
   var I18n = require('i18n!quiz_statistics');
   var classSet = require('../../util/class_set');
+  var ChartMixin = require('../../mixins/chart');
 
   var divide = function(x, y) {
     return (parseFloat(x) / y) || 0;
   };
 
   var Chart = React.createClass({
+    mixins: [ ChartMixin.mixin ],
+
     getDefaultProps: function() {
       return {
         correct: [],
         total: [],
         ratio: []
       };
-    },
-
-    componentDidMount: function() {
-      this.createChart(this.getDOMNode(), this.props);
-    },
-
-    shouldComponentUpdate: function(nextProps) {
-      this.updateChart(nextProps);
-      return false;
     },
 
     createChart: function(node, props) {
@@ -69,27 +63,9 @@ define(function(require) {
           });
 
       this.__svg = svg;
-    },
 
-    updateChart: function(props) {
-      this.removeChart();
-      this.createChart(this.getDOMNode(), props);
+      return svg;
     },
-
-    removeChart: function() {
-      this.__svg.remove();
-      this.__svg = undefined;
-    },
-
-    componentWillUnmount: function() {
-      this.removeChart();
-    },
-
-    render: function() {
-      return(
-        <svg className="chart" />
-      );
-    }
   });
 
   var DiscriminationIndex = React.createClass({

@@ -2,19 +2,13 @@
 define(function(require) {
   var React = require('react');
   var d3 = require('d3');
+  var ChartMixin = require('../../mixins/chart');
 
   var CIRCLE = 2 * Math.PI;
   var FMT_PERCENT = d3.format('%');
 
   var Chart = React.createClass({
-    componentDidMount: function() {
-      this.createChart(this.getDOMNode(), this.props);
-    },
-
-    shouldComponentUpdate: function(nextProps, nextState) {
-      this.updateChart(nextProps);
-      return false
-    },
+    mixins: [ ChartMixin.mixin ],
 
     createChart: function(node, props) {
       var ratio = props.correctResponseRatio;
@@ -47,29 +41,8 @@ define(function(require) {
         .attr('dy', '.35em')
         .text(FMT_PERCENT(ratio));
 
-      this.__svg = svg;
+      return svg;
     },
-
-    updateChart: function(props) {
-      console.info("Updating d3 chart with new props:", props);
-      this.removeChart();
-      this.createChart(this.getDOMNode(), props);
-    },
-
-    removeChart: function() {
-      this.__svg.remove();
-      this.__svg = undefined;
-    },
-
-    componentWillUnmount: function() {
-      this.removeChart();
-    },
-
-    render: function() {
-      return(
-        <svg className="chart" />
-      );
-    }
   });
 
   var CorrectAnswerDonut = React.createClass({

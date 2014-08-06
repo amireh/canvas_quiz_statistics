@@ -2,7 +2,7 @@ define(function(require) {
   var Subject = require('jsx!views/charts/discrimination_index');
   var K = require('constants');
 
-  describe('', function() {
+  describe('Views.Charts.DiscriminationIndex', function() {
     this.reactSuite({
       type: Subject
     });

@@ -2,6 +2,7 @@
 define(function(require) {
   var React = require('react');
   var I18n = require('i18n!statistics/summary');
+  var ScorePercentileChart = require('jsx!../components/score_percentile_chart');
   var secondsToTime = require('../util/seconds_to_time');
   var round = require('../util/round');
 
@@ -14,7 +15,8 @@ define(function(require) {
         scoreHigh: 0,
         scoreLow: 0,
         scoreStdev: 0,
-        durationAverage: 0
+        durationAverage: 0,
+        scores: {}
       };
     },
 
@@ -79,7 +81,8 @@ define(function(require) {
             </tbody>
           </table>
 
-          {this.renderChart()}
+          <ScorePercentileChart
+            scores={this.props.scores} />
         </div>
       );
     },
@@ -87,11 +90,6 @@ define(function(require) {
     renderReport: function(report) {
       return <div />
     },
-
-    renderChart: function() {
-      // <svg className="chart"></svg>
-      return false;
-    }
   });
 
   return Summary;

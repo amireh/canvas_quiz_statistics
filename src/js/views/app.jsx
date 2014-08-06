@@ -37,6 +37,7 @@ define(function(require) {
               scoreStdev={submissionStatistics.scoreStdev}
               durationAverage={submissionStatistics.durationAverage}
               quizReports={[]}
+              scores={submissionStatistics.scores}
               />
           </section>
 

@@ -15,8 +15,9 @@ define(function() {
       'score_high',
       'score_low',
       'score_stdev',
+      'scores',
       'duration_average',
-      'unique_count'
+      'unique_count',
     ],
 
     QUESTION_STATISTICS_ATTRS: [
