@@ -135,7 +135,11 @@ define(function(require) {
               {Math.abs(this.props.discriminationIndex.toFixed(2))}
             </em>
 
-            <strong>{I18n.t('discrimination_index', 'Discrimination Index')}</strong>
+            {' '}
+
+            <strong>
+              {I18n.t('discrimination_index', 'Discrimination Index')}
+            </strong>
 
             <i
               onClick={this.showHelpDialog}

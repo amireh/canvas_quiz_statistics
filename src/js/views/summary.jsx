@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('react');
-  var I18n = require('i18n!statistics/summary');
+  var I18n = require('i18n!quiz_statistics.summary');
   var ScorePercentileChart = require('jsx!../components/score_percentile_chart');
   var secondsToTime = require('../util/seconds_to_time');
   var round = require('../util/round');
