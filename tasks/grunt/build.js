@@ -5,7 +5,7 @@ module.exports = {
     'clean:compiled_jsx',
     'copy:src',
     'react',
-    'compile:js',
-    'compile:css'
+    'compile_js',
+    'compile_css'
   ]
 };

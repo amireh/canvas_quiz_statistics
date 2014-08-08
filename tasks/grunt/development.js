@@ -8,6 +8,6 @@ module.exports = {
     shell.exec('cd www/; ln -s ../dist ./');
     shell.exec('cd www/; ln -s ../test/fixtures ./');
 
-    grunt.task.run('compile:css');
+    grunt.task.run('compile_css');
   }
 };

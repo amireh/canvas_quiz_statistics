@@ -18,7 +18,8 @@
         ".git",
         ".grunt",
         ".yardoc",
-        "tmp"
+        "tmp",
+        "vendor/canvas"
       ],
       "file_exclude_patterns": [
         "*.sublime-workspace"

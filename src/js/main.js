@@ -3,6 +3,7 @@ requirejs.config({
   map: {
     '*': {
       'underscore': 'lodash',
+      'canvas_packages': '../../vendor/packages',
     }
   },
   paths: {
@@ -13,7 +14,8 @@ requirejs.config({
     'react': '../../vendor/js/react.min',
     'd3': '../../vendor/js/d3.v3',
     'lodash': '../../vendor/js/lodash.custom',
-    'rsvp': '../../vendor/js/rsvp'
+    'rsvp': '../../vendor/js/rsvp',
+    'canvas': '../../vendor/canvas/public/javascripts'
   },
 
   shim: {

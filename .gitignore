@@ -25,5 +25,8 @@ exclude
 /www/src
 /www/vendor
 /www/fixtures
+/www/font
+/www/images
+/vendor/canvas
 /src/js/config/environments/development.js
 /dist

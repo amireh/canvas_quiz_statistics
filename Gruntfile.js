@@ -19,8 +19,8 @@ module.exports = function(grunt) {
   var loadTasks = function(path) {
     glob.sync('*.js', { cwd: path }).forEach(function(taskFile) {
       var taskRunner;
-      var taskName = taskFile.replace(/\.js$/, '').replace(/_/g, ':');
       var task = require(path + '/' + taskFile);
+      var taskName = taskFile.replace(/\.js$/, '');
 
       taskRunner = task.runner;
 
@@ -40,6 +40,9 @@ module.exports = function(grunt) {
 
   grunt.pkg = config.pkg;
   grunt.moduleId = 'canvas_quiz_statistics';
+  grunt.paths = {
+    canvasPackageShims: 'tmp/canvas_package_shims.json'
+  };
 
   grunt.initConfig(config);
   grunt.loadNpmTasks('grunt-contrib-watch');
