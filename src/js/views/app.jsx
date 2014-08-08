@@ -4,10 +4,10 @@ define(function(require) {
   var Summary = require('jsx!./summary');
   var I18n = require('i18n!quiz_statistics');
   var _ = require('lodash');
-
-  var extend = _.extend;
   var QuestionRenderer = require('jsx!./question');
   var MultipleChoiceRenderer = require('jsx!./questions/multiple_choice');
+
+  var extend = _.extend;
   var Renderers = {
     'multiple_choice_question': MultipleChoiceRenderer
   };

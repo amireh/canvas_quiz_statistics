@@ -4,8 +4,10 @@ module.exports = {
   },
 
   compiled: {
-    src: 'tmp/compiled',
-    dest: 'tmp/js/canvas_quiz_statistics/compiled'
+    files: [{
+      src: 'tmp/compiled',
+      dest: 'tmp/js/canvas_quiz_statistics/compiled'
+    }]
   },
 
   assets: {

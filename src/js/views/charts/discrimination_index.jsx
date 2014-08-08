@@ -6,6 +6,8 @@ define(function(require) {
   var I18n = require('i18n!quiz_statistics');
   var classSet = require('../../util/class_set');
   var ChartMixin = require('../../mixins/chart');
+  var Dialog = require('jsx!../../components/dialog');
+  var Help = require('jsx!./discrimination_index/help');
 
   var divide = function(x, y) {
     return (parseFloat(x) / y) || 0;
@@ -141,8 +143,9 @@ define(function(require) {
               {I18n.t('discrimination_index', 'Discrimination Index')}
             </strong>
 
-            <i
-              onClick={this.showHelpDialog}
+            <Dialog
+              tagName="i"
+              content={Help}
               className="chart-help-trigger icon-question" />
           </p>
 

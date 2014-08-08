@@ -36,5 +36,7 @@ define(function() {
       'correct_bottom_student_count',
       'point_biserials'
     ],
+
+    DISCRIMINATION_INDEX_HELP_ARTICLE_URL: "http://guides.instructure.com/m/4152/l/41484-once-i-publish-my-quiz-what-kinds-of-quiz-statistics-are-available"
   };
 });

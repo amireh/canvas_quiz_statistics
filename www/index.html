@@ -3,14 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
     <title>Canvas Quiz Statistics</title>
 
-    <link rel="stylesheet" href="/dist/canvas_quiz_statistics.css" />
+    <!-- Canvas Normal Contrast CSS -->
+    <link
+      rel="stylesheet"
+      href="/vendor/canvas/public/stylesheets_compiled/new_styles_normal_contrast/pages/g_vendor.css" />
+    <link
+      rel="stylesheet"
+      href="/vendor/canvas/public/stylesheets_compiled/new_styles_normal_contrast/base/c-common.css" />
+
+    <!-- App CSS -->
+    <link
+      rel="stylesheet"
+      href="/dist/canvas_quiz_statistics.css" />
+
     <script src="/vendor/js/require.js"></script>
   </head>
 
   <body>
-    <script>
+    <script async="true">
       requirejs.config({
         catchError: true,
         baseUrl: '/src/js',
@@ -22,14 +35,21 @@
         deps: [ 'main' ]
       });
 
+      require([ 'canvas_quiz_statistics' ], function(app) {
+        window.App = app;
 
-      require([ 'canvas_quiz_statistics' ], function(App) {
-        window.App = App;
-        // App.config.quizStatisticsUrl = '/api/v1/courses/1/quizzes/1/statistics';
-        App.config.quizStatisticsUrl = '/fixtures/quiz_statistics.json';
-        App.mount(document.body);
+        // You can hit against the actual Canvas API if you got reverse proxy
+        // going on:
+        //
+        // app.config.quizStatisticsUrl = '/api/v1/courses/1/quizzes/1/statistics';
+
+        // Or just use the fixtures for speed:
+        app.config.quizStatisticsUrl = '/fixtures/quiz_statistics.json';
+
+        app.mount(document.body);
       });
     </script>
+
     <script src="//localhost:9224/livereload.js"></script>
  </body>
 </html>

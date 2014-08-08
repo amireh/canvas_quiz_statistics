@@ -15,7 +15,7 @@ requirejs.config({
     'd3': '../../vendor/js/d3.v3',
     'lodash': '../../vendor/js/lodash.custom',
     'rsvp': '../../vendor/js/rsvp',
-    'canvas': '../../vendor/canvas/public/javascripts'
+    'canvas': '../../vendor/canvas/public/javascripts',
   },
 
   shim: {
