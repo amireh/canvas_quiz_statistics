@@ -27,7 +27,7 @@ module.exports = {
   },
 
   tests: {
-    files: [ 'src/js/**/*.j{s,sx}', 'test/**/*' ],
+    files: [ 'src/js/**/*.j{s,sx}', 'test/**/*', 'tasks/*.js', ],
     tasks: [ 'jasmine:unit' ],
   },
 };

@@ -17,6 +17,7 @@ exclude
 *.gz
 
 [env]
+/.ruby-version
 /.grunt/
 /node_modules
 /assets

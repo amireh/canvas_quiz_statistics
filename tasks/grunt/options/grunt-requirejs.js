@@ -1,5 +1,6 @@
 var grunt = require('grunt');
 var _ = require('lodash');
+var convert = require('rjs_converter');
 var extend = _.extend;
 
 var baseOptions = {
@@ -27,7 +28,7 @@ var baseOptions = {
   },
 
   wrap: {
-    start: "/* <%= grunt.moduleId %> <%= grunt.pkg.version %> */\n",
+    start: "/* canvas_precompiled_asset: true */\n/* <%= grunt.moduleId %> <%= grunt.pkg.version %> */\n",
   },
 
   rawText: {
@@ -37,8 +38,8 @@ var baseOptions = {
   include: [ "<%= grunt.moduleId %>/boot" ],
   exclude: [ 'text', 'jsx', 'i18n' ],
 
-  onBuildWrite: function (moduleName, path, singleContents) {
-    return singleContents.replace(/(text!|jsx!)/g, '');
+  onBuildWrite: function (moduleName, path, contents) {
+    return convert(contents.replace(/(text!|jsx!)/g, ''));
   }
 };
 
