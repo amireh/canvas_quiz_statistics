@@ -48,7 +48,7 @@ var baseOptions = {
   include: [ "<%= grunt.moduleId %>/boot" ],
   exclude: [ 'text', 'jsx', 'i18n' ],
 
-  onBuildWrite: function (moduleName, path, contents) {
+  onBuildWrite: function(moduleName, path, contents) {
     return convert(contents
       // Text and JSX modules get inlined by the post-processor and become
       // regular modules so get rid of the plugin prefix in module ids:
@@ -84,28 +84,28 @@ module.exports = {
     })
   },
 
-  minified: {
-    options: merge({}, baseOptions, {
-      out: "dist/<%= grunt.moduleId %>.min.js",
-      optimize: 'uglify2',
+  // minified: {
+  //   options: merge({}, baseOptions, {
+  //     out: "dist/<%= grunt.moduleId %>.min.js",
+  //     optimize: 'uglify2',
 
-      uglify2: {
-        warnings: true,
-        mangle:   true,
+  //     uglify2: {
+  //       warnings: true,
+  //       mangle:   true,
 
-        output: {
-          beautify: false
-        },
+  //       output: {
+  //         beautify: false
+  //       },
 
-        compress: {
-          sequences:  true,
-          dead_code:  true,
-          loops:      true,
-          unused:     true,
-          if_return:  true,
-          join_vars:  true
-        }
-      }
-    })
-  },
+  //       compress: {
+  //         sequences:  true,
+  //         dead_code:  true,
+  //         loops:      true,
+  //         unused:     true,
+  //         if_return:  true,
+  //         join_vars:  true
+  //       }
+  //     }
+  //   })
+  // },
 };

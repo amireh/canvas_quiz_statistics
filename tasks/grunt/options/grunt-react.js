@@ -6,7 +6,7 @@ module.exports = {
 
     files: [{
       expand: true,
-      cwd: 'src/js',
+      cwd: 'tmp/js/canvas_quiz_statistics',
       src: [ '**/*.jsx' ],
       dest: 'tmp/compiled/jsx',
 
