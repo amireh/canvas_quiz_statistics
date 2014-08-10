@@ -87,8 +87,8 @@ define(function(require) {
       );
     },
 
-    renderReport: function(report) {
-      return <div />
+    renderReport: function(/*report*/) {
+      return <div />;
     },
   });
 

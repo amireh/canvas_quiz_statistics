@@ -1,19 +1,7 @@
 define(function(require) {
   var Inflections = require('./inflections');
   var camelizeStr = Inflections.camelize;
-
-  var convertProp = function(props, key, converter) {
-    if (props[key] !== undefined) {
-      if (Array.isArray(props[key])) {
-        props[key] = props[key].map(function(value) {
-          return value !== undefined ? converter(value) : value;
-        });
-      }
-      else {
-        props[key] = converter(props[key]);
-      }
-    }
-  };
+  var underscoreStr = Inflections.underscore;
 
   return {
     // Convert all property keys in an object to camelCase
@@ -29,5 +17,18 @@ define(function(require) {
 
       return attrs;
     },
+
+    underscore: function(props) {
+      var prop;
+      var attrs = {};
+
+      for (prop in props) {
+        if (props.hasOwnProperty(prop)) {
+          attrs[underscoreStr(prop)] = props[prop];
+        }
+      }
+
+      return attrs;
+    }
   };
 });

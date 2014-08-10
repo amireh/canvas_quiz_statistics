@@ -5,7 +5,7 @@ module.exports = {
     'clean:compiled_jsx',
     'copy:src',
     'convert_jsx_i18n',
-    'react',
+    'react:build',
     'compile_js',
     'compile_css'
   ]

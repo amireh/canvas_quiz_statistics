@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('react');
-  var CanvasDialog = require('canvas_packages/jqueryui/dialog');
+  var jQueryUIDialog = require('canvas_packages/jqueryui/dialog');
   var $ = require('canvas_packages/jquery');
   var _ = require('lodash');
   var omit = _.omit;
@@ -59,7 +59,7 @@ define(function(require) {
        * type inside the $.dialog() and keeping it updated with the props you
        * pass through.
        */
-      content: React.PropTypes.component,
+      content: React.PropTypes.func,
 
       /**
        * @property {React.Component} children
@@ -113,14 +113,13 @@ define(function(require) {
 
     getDefaultProps: function() {
       return {
-        content: null,
         children: [],
         autoOpen: false,
         tagName: 'div'
       };
     },
 
-    componentDidUpdate: function(prevProps, prevState) {
+    componentDidUpdate: function(/*prevProps, prevState*/) {
       var props = this.props;
 
       // Create the dialog if it hasn't been created yet:

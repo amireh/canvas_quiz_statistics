@@ -8,7 +8,7 @@ define([
   var config = ProductionConfig || {};
 
   //>>excludeStart("production", pragmas.production);
-  _.merge(config, DevelopmentConfig || {});
+  config = _.extend({}, config, DevelopmentConfig);
   //>>excludeEnd("production");
 
   return config;

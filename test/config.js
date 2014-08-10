@@ -12,10 +12,10 @@ requirejs.config({
     'json': '../../vendor/js/require/json',
     'jasmine_rsvp': '../../node_modules/jasmine-rsvp/dist/jasmine-rsvp-full',
 
-    // jQuery is needed by jasmine-react
+    // jasmine_react dependencies:
     'jquery': '../../node_modules/jquery/dist/jquery',
-    'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react.full',
-    'react': '../../node_modules/jasmine-react/dist/jasmine_react.full',
+    'react': '../../vendor/packages/react-with-addons',
+    'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react',
   },
 
   deps: [

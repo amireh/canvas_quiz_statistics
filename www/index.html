@@ -23,9 +23,10 @@
   </head>
 
   <body>
+    <div id="main"></div>
+
     <script async="true">
       requirejs.config({
-        catchError: true,
         baseUrl: '/src/js',
         map: {
           '*': {
@@ -46,7 +47,7 @@
         // Or just use the fixtures for speed:
         app.config.quizStatisticsUrl = '/fixtures/quiz_statistics.json';
 
-        app.mount(document.body);
+        app.mount(document.body.querySelector('#main'));
       });
     </script>
 

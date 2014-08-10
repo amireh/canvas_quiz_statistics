@@ -9,9 +9,6 @@ define(function(require) {
   var findWhere = _.findWhere;
   var compact = _.compact;
 
-  var CIRCLE = 2 * Math.PI;
-  var FMT_PERCENT = d3.format('%');
-
   var Chart = React.createClass({
     mixins: [ ChartMixin.mixin ],
     getDefaultProps: function() {
@@ -41,6 +38,7 @@ define(function(require) {
     },
 
     createChart: function(node, props) {
+      var otherAnswers;
       var data = props.answers;
       var container = this.getDOMNode();
 
@@ -57,7 +55,7 @@ define(function(require) {
         width = container.offsetWidth;
       }
       else {
-        width = parseInt(props.width);
+        width = parseInt(props.width, 10);
       }
 
       width -= margin.left - margin.right;
@@ -68,7 +66,7 @@ define(function(require) {
       var xOffset = props.xOffset;
 
       var x = d3.scale.ordinal()
-        .rangeRoundBands([0, barWidth * sz], .025);
+        .rangeRoundBands([0, barWidth * sz], 0.025);
 
       var y = d3.scale.linear()
         .range([height, 0]);
@@ -101,7 +99,7 @@ define(function(require) {
           })
           .attr("height", function(d) {
             return height - y(d.y) + visibilityThreshold;
-          })
+          });
 
       // If the special "No Answer" is present, we represent it as a diagonally-
       // striped bar, but to do that we need to render the <svg:pattern> that
@@ -113,7 +111,7 @@ define(function(require) {
       ]);
 
       if (otherAnswers.length) {
-        this.renderStripePattern(svg)
+        this.renderStripePattern(svg);
         svg.selectAll('.bar.bar-striped')
           .data(otherAnswers)
           .enter().append('rect')
@@ -179,7 +177,7 @@ define(function(require) {
           id: ''+answer.id,
           y: answer.responses,
           correct: answer.correct
-        }
+        };
       });
 
       return (
@@ -190,7 +188,7 @@ define(function(require) {
             {this.props.children}
           </div>
         </div>
-      )
+      );
     }
   });
 

@@ -41,8 +41,8 @@ define(function(require) {
     },
 
     updateCalculator: function(props) {
-      this.state.calculator.setAnswerPool(this.props.answers);
-      this.state.calculator.setParticipantCount(this.props.participantCount);
+      this.state.calculator.setAnswerPool(props.answers);
+      this.state.calculator.setParticipantCount(props.participantCount);
       this.setState({
         correctResponseRatio: this.state.calculator.getRatio()
       });

@@ -23,7 +23,7 @@ module.exports = {
 
   jsx: {
     files: 'src/js/**/*.jsx',
-    tasks: [ 'newer:react', 'jshint:jsx' ]
+    tasks: [ 'newer:react:dev', 'jshint:jsx' ]
   },
 
   tests: {

@@ -9,8 +9,10 @@ define(function(require) {
       },
 
       removeChart: function() {
-        this.__svg.remove();
-        this.__svg = undefined;
+        if (this.__svg) {
+          this.__svg.remove();
+          delete this.__svg;
+        }
       }
     },
 

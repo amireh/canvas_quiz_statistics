@@ -26,17 +26,20 @@ define(function(require) {
         .append('g')
           .attr('transform', 'translate(' + radius + ',' + radius + ')');
 
-      var background = svg.append('path')
+      // background circle that's always "empty" (shaded in light color)
+      svg.append('path')
         .datum({ endAngle: CIRCLE })
         .attr('class', 'background')
         .attr('d', arc);
 
-      var foreground = svg.append('path')
+      // foreground circle that fills up based on ratio (green, or flashy)
+      svg.append('path')
         .datum({ endAngle: CIRCLE * ratio })
         .attr('class', 'foreground')
         .attr('d', arc);
 
-      var text = svg.append('text')
+      // text inside the circle
+      svg.append('text')
         .attr('text-anchor', 'middle')
         .attr('dy', '.35em')
         .text(FMT_PERCENT(ratio));
@@ -71,7 +74,7 @@ define(function(require) {
             {this.props.children}
           </div>
         </div>
-      )
+      );
     }
   });
 

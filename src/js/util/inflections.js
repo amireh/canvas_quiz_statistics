@@ -9,6 +9,13 @@ define(function() {
           return c ? c.toUpperCase () : '';
         }
       });
+    },
+
+
+    underscore: function(str) {
+      return str.replace(/([A-Z])/g, function($1){
+        return '_' + $1.toLowerCase();
+      });
     }
   };
 });

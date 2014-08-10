@@ -1,6 +1,6 @@
 var glob = require('glob');
 var fs = require('fs');
-var extractTextBlocks = require('../extract_text_blocks');
+var convert = require('canvas_react_i18n');
 
 module.exports = {
   description: 'Convert <Text /> blocks in JSX to Canvas-compatible I18n calls.',
@@ -10,7 +10,7 @@ module.exports = {
     glob.sync('**/*.jsx', { cwd: path }).forEach(function(fileName) {
       var filePath = path + '/' + fileName;
       var contents = String(fs.readFileSync(filePath));
-      var newContents = extractTextBlocks.transform(contents);
+      var newContents = convert(contents);
 
       if (newContents !== contents) {
         console.log('Found <Text /> in', filePath);
