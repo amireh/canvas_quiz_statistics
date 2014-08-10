@@ -1,5 +1,7 @@
 /* jshint node: true */
 var _ = require('lodash');
+var cheerio = require('cheerio');
+
 var underscoreStr = function(str) {
   return str.replace(/([A-Z])/g, function($1){
     return '_' + $1.toLowerCase();
@@ -17,7 +19,7 @@ var TRANSFORMED_TEXT = _.template(
 // Locates a <Text>...</Text> tag and captures its contents:
 var TEXT_TAG_START = /<Text[^>]+>/m;
 var TEXT_TAG_END = '</Text>';
-// var VERBOSE = process.env.VERBOSE;
+var VERBOSE = process.env.VERBOSE;
 
 // Capture all attribute tags inside the opening <Text> tag. E.g:
 //
@@ -29,45 +31,109 @@ var TEXT_TAG_END = '</Text>';
 var TEXT_PROPS_EXTRACTOR = /<Text([^>]+)>/;
 
 // Locates the leading <Text> and trailing </Text>:
-var TEXT_TAG_STRIPPER = /^<Text>|<\/Text>$/g;
+var TEXT_TAG_STRIPPER = /^<Text[^>]+>|<\/Text>$/g;
 
-var getScope = function(params) {
-  return params.filter(function(prop) {
-    return prop.key === 'scope';
-  }).map(function(scopeProp) {
-    return scopeProp.value;
-  })[0];
+var padArray = function(original, offset, pad) {
+  return [].concat(
+    original.slice(0, offset),  // before part
+    Array(pad).join(' '),       // the padding
+    original.slice(offset)      // the "after" part
+  );
 };
 
-var getParams = function(tag) {
-  return tag
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .map(function(prop) {
-      return prop.trim().replace(/"/g, '').split('=');
-    })
-    .map(function(fragments) {
-      return {
-        key: fragments[0].trim(),
-        value: fragments[1].trim()
-      };
-    });
-};
-
-var normalizeStr = function(str) {
-  return str.replace(/"/g, '\\"');//.replace(/\n+/g, ' ');
-};
-
-var dumpOptions = function(options) {
-  return JSON.stringify(options).replace(/\"\{|\}\"/g, '');
-};
-
+/**
+ * Given a <Text>...</Text> component string, this method will extract several
+ * i18n items and construct an I18n.t() directive that would work in Canvas.
+ *
+ * Note: you should not use this directly, use #extractTextBlocks() instead as
+ * it takes care of extracting all blocks in a given source string.
+ *
+ * @param  {String} textBlock
+ *         A string containing a *single* <Text>...</Text> React component.
+ *
+ * @return {Object} i18n
+ * @return {String} i18n.scope
+ *         The i18n scope; what you use in `require([ "i18n!... ])`
+ *
+ * @return {String} i18n.phrase
+ *         The phrase you're translating; the "name" in `I18n.t("name")`.
+ *
+ * @return {String} i18n.defaultValue
+ *         The text or HTML contents of the <Text> component. Beware that this
+ *         is not ready for injecting into an I18n.t() call as it requires
+ *         wrapping. See #wrap()
+ *
+ * @return {Object} i18n.options
+ *         Any options passed to the <Text/> component will be referenced here,
+ *         such as "context", "count", or any variables the phrase will be
+ *         interpolating.
+ *
+ * @return {String} i18n.stringValue
+ *         The full call to I18n.t() with the proper phrase, its default value,
+ *         and any options. This can be `eval()`d inside a Canvas environment
+ *         and it would yield the proper value.
+ */
 var extract = function(textBlock) {
+  var getScope = function(params) {
+    return params.filter(function(prop) {
+      return prop.key === 'scope';
+    }).map(function(scopeProp) {
+      return scopeProp.value;
+    })[0];
+  };
+
+  var getParams = function(tag) {
+    return tag
+      .replace(/\s+/g, ' ')
+      .trim()
+      .split(' ')
+      .map(function(prop) {
+        return prop.trim().replace(/"/g, '').split('=');
+      })
+      .map(function(fragments) {
+        return {
+          key: fragments[0].trim(),
+          value: fragments[1].trim()
+        };
+      });
+  };
+
+  var normalizeStr = function(str) {
+    return str.replace(/"/g, '\\"');//.replace(/\n+/g, ' ');
+  };
+
+  /**
+   * Generate the options parameter to use in the I18n.t() directive.
+   *
+   * @param  {Object} options
+   *         The tag attributes you extracted from the starting <Text> docstring.
+   *
+   * @note
+   * This gets really trippy when we're passing values for interpolation in React.
+   * For example, to pass a "name" option to the <Text /> component, you would do
+   * something like this:
+   *
+   *     <Text name="Ahmad" /> // OR, much more likely:
+   *     <Text name={this.props.name} />
+   *
+   * Because of the second form, this method will not produce valid JSON, e.g,
+   * you can't "eval()" it unless you're inside the context in which the <Text />
+   * definition was done because it needs access to {this.props.name} to
+   * evaluate.
+   *
+   * @return {String}
+   *         The objects in a serialized notation, can be eval()d or written to
+   *         an I18n.t() directive string.
+   */
+  var dumpOptions = function(options) {
+    return JSON.stringify(options).replace(/\"\{|\}\"/g, '');
+  };
+
   var i18n = {
     scope: null,
     phrase: null,
     defaultValue: null,
+    stringValue: '',
     options: {}
   };
 
@@ -86,18 +152,11 @@ var extract = function(textBlock) {
   i18n.scope = i18nPath.join('.');
   i18n.options = i18nParams;
   i18n.defaultValue = textBlock
-    .replace(textTagStart, '')
-    .trim()
-    .replace(TEXT_TAG_STRIPPER, '')
-    .replace(/[\n\s]+/g, ' ')
+    .replace(TEXT_TAG_STRIPPER, '') // remove <Text ...> and </Text>
+    .replace(/[\n\s]+/g, ' ')       // no newlines, use spaces instead
     .trim();
 
-  // i18n.stringValue =
-  //   'I18n.t("' + i18n.phrase + '", ' +
-  //     '"' + normalizeStr(i18n.defaultValue) + '", ' +
-  //     dumpOptions(i18n.options) +
-  //   ');';
-
+  // Generate the actual I18n.t() directive
   i18n.stringValue = I18N_DIRECTIVE({
     phrase: i18n.phrase,
     defaultValue: normalizeStr(i18n.defaultValue),
@@ -148,13 +207,6 @@ var transform = function(contents) {
   var textBlocks = extractTextBlocks(contents);
   var padding = 0;
 
-  function padArray(original, offset, pad) {
-    var beforePart = original.slice(0, offset);
-    var afterPart = original.slice(offset);
-    var newPart = Array(pad).join(' ');
-    return [].concat(beforePart).concat(newPart).concat(afterPart);
-  }
-
   if (textBlocks.length) {
     contents = contents.split('');
     textBlocks.forEach(function(block) {
@@ -197,7 +249,7 @@ var transform = function(contents) {
         contents[i] = transformedDOM[i - begin];
       }
 
-      console.log('Padding: [%d]', padding);
+      if (VERBOSE) { console.log('Padding: [%d]', padding); }
     });
 
     contents = contents.join('');
@@ -206,5 +258,114 @@ var transform = function(contents) {
   return contents;
 };
 
+var extractWrappers = function(html) {
+  // var $ = cheerio.load(html);
+  var wrapper = {};
+  var stringValue = '';
+
+  var TAG_NAME = "[a-z][a-z0-9]*";
+  var TAG_START = new RegExp('<(' + TAG_NAME + ')[^>]*(?!/)>', 'i');
+  var tagStack = [];
+  var charsConsumed = 0;
+
+  var wrapTag = function(tag, input, allWrappers) {
+    if (!tag) {
+      return input;
+    }
+
+    allWrappers = allWrappers || {};
+
+    var tagEndPosition = input.indexOf(tag.closingStr, tag.index);
+    var chars;
+    var wrapper, i, repl;
+    var begin;
+    var end;
+    var charCountDelta;
+    var tagContent;
+    var asterisks;
+
+    if (tagEndPosition > -1) {
+      begin = tag.index;
+      end = tagEndPosition + tag.closingStr.length;
+      tagContent = input.substring(begin + tag.tag.length, tagEndPosition);
+      asterisks = Array(tagStack.length + 2).join('*');
+
+      // Create the starting * wrapper:
+      wrapper = asterisks;
+
+      // Keep the content of the tag:
+      wrapper += tagContent;
+
+      // Create the closing * wrapper:
+      wrapper += asterisks;
+
+      charCountDelta = wrapper.length - (end - begin);
+      chars = input.split('');
+
+      if (VERBOSE) {
+        console.log('Handling tag <%s> at [%d, %d] (%s)',
+          tag.tagName,
+          begin,
+          end,
+          input.substring(begin, end));
+      }
+
+      if (charCountDelta > 0) {
+        chars = padArray(chars, end, charCountDelta);
+        end = end + charCountDelta;
+      }
+
+      for (i = begin, repl = 0; i < end; ++i, ++repl) {
+        if (tag.tagName === 'a') {
+          console.log('Substituting %s with %s [%d]', chars[i], wrapper[repl] || '', i);
+        }
+        chars[i] = wrapper[repl] || '';
+      }
+
+      allWrappers[asterisks] = tag.openingStr + '$1' + tag.closingStr;
+      input = chars.join('');
+    } else {
+      console.warn('Closing tag for <%s> at [%d] could not be located.',
+        tag.tagName, tag.index);
+    }
+
+    return wrapTag(tagStack.pop(), input, allWrappers);
+  };
+
+  var extractTag = function(str) {
+    var cursor, charCount;
+    var match = str.match(TAG_START);
+
+    if (!match) {
+      console.log('No more tags found.');
+      return;
+    }
+
+    cursor = match.index;
+    charCount = match[0].length;
+
+    tagStack.push({
+      tag: match[0],
+      openingStr: match[0],
+      closingStr: '</' + match[1] + '>',
+      tagName: match[1],
+      index: charsConsumed + cursor
+    });
+
+    charsConsumed += cursor + charCount;
+
+    return extractTag(str.substring(cursor + charCount));
+  };
+
+  extractTag(html);
+  stringValue = wrapTag(tagStack.pop(), html, wrapper);
+
+  return {
+    stringValue: stringValue,
+    wrapper: wrapper
+  };
+};
+
 module.exports = extractTextBlocks;
 module.exports.transform = transform;
+module.exports.extractWrappers = extractWrappers;
