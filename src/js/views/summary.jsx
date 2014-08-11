@@ -5,6 +5,7 @@ define(function(require) {
   var ScorePercentileChart = require('jsx!../components/score_percentile_chart');
   var secondsToTime = require('../util/seconds_to_time');
   var round = require('../util/round');
+  var Report = require('jsx!./summary/report');
 
   var Summary = React.createClass({
     getDefaultProps: function() {
@@ -87,8 +88,8 @@ define(function(require) {
       );
     },
 
-    renderReport: function(/*report*/) {
-      return <div />;
+    renderReport: function(reportProps) {
+      return Report(reportProps);
     },
   });
 

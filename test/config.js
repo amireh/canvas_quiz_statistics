@@ -11,11 +11,16 @@ requirejs.config({
   paths: {
     'json': '../../vendor/js/require/json',
     'jasmine_rsvp': '../../node_modules/jasmine-rsvp/dist/jasmine-rsvp-full',
+    'sinon': '../../test/vendor/sinon',
 
     // jasmine_react dependencies:
     'jquery': '../../node_modules/jquery/dist/jquery',
     'react': '../../vendor/packages/react-with-addons',
     'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react',
+  },
+
+  shim: {
+    'sinon': { exports: 'sinon' }
   },
 
   deps: [

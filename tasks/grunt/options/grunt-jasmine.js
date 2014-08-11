@@ -23,7 +23,7 @@ module.exports = {
       styles: [ "www/dist/<%= grunt.pkg.name %>.css" ],
 
       helpers: [
-        'test/vendor/*.js',
+        'test/support/*.js',
         'test/helpers/*.js',
       ],
 

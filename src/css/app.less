@@ -1,5 +1,6 @@
 @highlightColor: #349e67;
 @muteTextColor: #949494;
+@whitespace: 10px;
 
 #canvas-quiz-statistics {
   border-top: 1px solid #CAD0D7;
@@ -348,6 +349,10 @@
   .report-generator {
     .auxiliary {
       display: none;
+    }
+
+    &+ .report-generator {
+      margin-left: @whitespace;
     }
   }
 

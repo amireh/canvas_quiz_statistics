@@ -10,7 +10,21 @@ define([], function() {
     ajax: undefined,
 
     quizStatisticsUrl: undefined,
+    quizReportsUrl: undefined,
 
-    loadOnStartup: true
+    loadOnStartup: true,
+
+    /**
+     * Error emitter. Default behavior is to log the error message to the
+     * console.
+     *
+     * Override this to handle errors from the app.
+     *
+     * @param  {String} message
+     *         An explanation of the error.
+     */
+    onError: function(message) {
+      console.error(message);
+    }
   };
 });

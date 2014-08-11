@@ -42,5 +42,5 @@ require([
         container = jasmine.fixture = undefined;
       }
     }
-  })
+  });
 });

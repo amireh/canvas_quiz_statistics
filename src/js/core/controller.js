@@ -8,6 +8,7 @@ define(function(require) {
       quizStatistics: statisticsStore.getQuizStatistics(),
       submissionStatistics: statisticsStore.getSubmissionStatistics(),
       questionStatistics: statisticsStore.getQuestionStatistics(),
+      quizReports: statisticsStore.getQuizReports(),
     });
   };
 

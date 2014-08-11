@@ -37,7 +37,7 @@ define(function(require) {
               scoreLow={submissionStatistics.scoreLow}
               scoreStdev={submissionStatistics.scoreStdev}
               durationAverage={submissionStatistics.durationAverage}
-              quizReports={[]}
+              quizReports={this.props.quizReports}
               scores={submissionStatistics.scores}
               />
           </section>
