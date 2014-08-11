@@ -9,7 +9,8 @@ define(function(require) {
 
   var extend = _.extend;
   var Renderers = {
-    'multiple_choice_question': MultipleChoiceRenderer
+    'multiple_choice_question': MultipleChoiceRenderer,
+    'true_false_question': MultipleChoiceRenderer,
   };
 
   var Statistics = React.createClass({

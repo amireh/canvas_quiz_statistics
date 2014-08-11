@@ -25,18 +25,13 @@
   <body>
     <div id="main"></div>
 
-    <script async="true">
+    <script>
       requirejs.config({
         baseUrl: '/src/js',
-        map: {
-          '*': {
-            'canvas_quiz_statistics': 'boot'
-          }
-        },
         deps: [ 'main' ]
       });
 
-      require([ 'canvas_quiz_statistics' ], function(app) {
+      require([ 'boot' ], function(app) {
         window.App = app;
 
         // You can hit against the actual Canvas API if you got reverse proxy
@@ -45,7 +40,7 @@
         // app.config.quizStatisticsUrl = '/api/v1/courses/1/quizzes/1/statistics';
 
         // Or just use the fixtures for speed:
-        app.config.quizStatisticsUrl = '/fixtures/quiz_statistics.json';
+        app.config.quizStatisticsUrl = '/fixtures/quiz_statistics_all_types.json';
 
         app.mount(document.body.querySelector('#main'));
       });

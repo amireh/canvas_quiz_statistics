@@ -13,14 +13,14 @@ module.exports = {
           'test/config.js',
         ],
         deferHelpers: true,
-        defaultErrors: false
+        defaultErrors: true
       },
 
       keepRunner: true,
 
       version: '2.0.0',
 
-      styles: [ "www/dist/<%= grunt.pkg.name %>" ],
+      styles: [ "www/dist/<%= grunt.pkg.name %>.css" ],
 
       helpers: [
         'test/vendor/*.js',

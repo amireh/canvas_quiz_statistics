@@ -134,7 +134,7 @@ define(function(require) {
           <p>
             <em className={classSet(className)}>
               <span className="sign">{sign}</span>
-              {Math.abs(this.props.discriminationIndex.toFixed(2))}
+              {Math.abs((this.props.discriminationIndex || 0).toFixed(2))}
             </em>
 
             {' '}

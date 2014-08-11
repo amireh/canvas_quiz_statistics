@@ -46,23 +46,23 @@ define(function(require) {
             <thead>
               <tr>
                 <th>
-                  <i className="icon-quiz-stats-avg"></i>
+                  <i className="icon-quiz-stats-avg"></i>{' '}
                   {I18n.t('stats_mean', 'Avg Score')}
                 </th>
                 <th>
-                  <i className="icon-quiz-stats-high"></i>
+                  <i className="icon-quiz-stats-high"></i>{' '}
                   {I18n.t('stats_high', 'High Score')}
                 </th>
                 <th>
-                  <i className="icon-quiz-stats-low"></i>
+                  <i className="icon-quiz-stats-low"></i>{' '}
                   {I18n.t('stats_low', 'Low Score')}
                 </th>
                 <th>
-                  <i className="icon-quiz-stats-deviation"></i>
+                  <i className="icon-quiz-stats-deviation"></i>{' '}
                   {I18n.t('stats_stdev', 'Std. Deviation')}
                 </th>
                 <th>
-                  <i className="icon-quiz-stats-time"></i>
+                  <i className="icon-quiz-stats-time"></i>{' '}
                   {I18n.t('stats_avg_time', 'Avg Time')}
                 </th>
               </tr>

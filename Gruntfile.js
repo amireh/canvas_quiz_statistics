@@ -33,12 +33,12 @@ module.exports = function(grunt) {
   };
 
   config = {
-    appName: 'Canvas Quiz Statistics',
     pkg: readPackage(),
     env: process.env,
   };
 
   grunt.pkg = config.pkg;
+  grunt.appName = 'Canvas Quiz Statistics';
   grunt.moduleId = 'canvas_quiz_statistics';
   grunt.paths = {
     canvasPackageShims: 'tmp/canvas_package_shims.json'

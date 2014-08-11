@@ -23,13 +23,7 @@ define(function(require) {
           </p>
 
           <p>
-            More information is available
-            <a
-              href="%{article_url}"
-              target="_blank">
-              here
-            </a>
-            .
+            More information is available <a href="%{article_url}" target="_blank">here</a>.
           </p>
         </Text>
       );

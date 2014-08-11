@@ -3,7 +3,7 @@ define(function(require) {
   var RSVP = require('rsvp');
   var Adapter = require('core/adapter');
   var config = require('config');
-  var quizStatisticsFixture = require('json!fixtures/quiz_statistics.json');
+  var quizStatisticsFixture = require('json!fixtures/quiz_statistics_all_types.json');
 
   describe('Stores.Statistics', function() {
     this.promiseSuite = true;

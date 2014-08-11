@@ -5,7 +5,7 @@ module.exports = {
     src: [ 'src/js', 'src/css', 'tmp/compiled/**/*.js' ],
     dest: 'doc/api',
     options: {
-      'title': "<%= grunt.config.appName %> Reference",
+      'title': "<%= grunt.appName %> Reference",
       'builtin-classes': false,
       'color': true,
       'no-source': true,
