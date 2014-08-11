@@ -11,7 +11,12 @@ define(function(require) {
 
   return function deserializeReports(payload) {
     return payload.quiz_reports.map(function(quiz_report) {
-      return extract(quiz_report, K.QUIZ_REPORT_ATTRS);
+      var report = extract(quiz_report, K.QUIZ_REPORT_ATTRS);
+
+      report.progress = extract(quiz_report.progress, K.PROGRESS_ATTRS);
+      report.file = extract(quiz_report.file, K.ATTACHMENT_ATTRS);
+
+      return report;
     });
   };
 });

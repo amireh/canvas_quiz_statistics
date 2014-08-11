@@ -89,6 +89,7 @@ define(function(require) {
     },
 
     renderReport: function(reportProps) {
+      reportProps.key = 'report-' + reportProps.id;
       return Report(reportProps);
     },
   });

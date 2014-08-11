@@ -10,8 +10,8 @@ requirejs.config({
 
   paths: {
     'json': '../../vendor/js/require/json',
-    'jasmine_rsvp': '../../node_modules/jasmine-rsvp/dist/jasmine-rsvp-full',
-    'sinon': '../../test/vendor/sinon',
+    'jasmine_rsvp': '../../node_modules/jasmine_rsvp/dist/jasmine_rsvp-full',
+    'jasmine_xhr': '../../node_modules/jasmine_xhr/dist/jasmine_xhr',
 
     // jasmine_react dependencies:
     'jquery': '../../node_modules/jquery/dist/jquery',
@@ -19,14 +19,11 @@ requirejs.config({
     'jasmine_react': '../../node_modules/jasmine-react/dist/jasmine_react',
   },
 
-  shim: {
-    'sinon': { exports: 'sinon' }
-  },
-
   deps: [
     'json',
     'jasmine_react',
-    'jasmine_rsvp'
+    'jasmine_rsvp',
+    'jasmine_xhr',
   ],
 
   waitSeconds: 1,

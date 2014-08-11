@@ -1,11 +1,35 @@
 define(function(require) {
   var _ = require('lodash');
+  var Dispatcher = require('./dispatcher');
   var extend = _.extend;
 
   var Store = function(key, proto) {
+    var emitChange = this.emitChange.bind(this);
+
     this._key = key;
     this.__reset__();
+
     extend(this, proto || {});
+
+    Object.keys(this.actions).forEach(function(action) {
+      var handler = this.actions[action].bind(this);
+      var scopedAction = [ key, action ].join(':');
+
+      console.debug('Store action:', scopedAction);
+
+      Dispatcher.register(scopedAction, function(params, resolve, reject) {
+        try {
+          handler(params, function onChange(rc) {
+            resolve(rc);
+            emitChange();
+          }, reject);
+        } catch(e) {
+          reject(e);
+        }
+      });
+
+    }.bind(this));
+
     return this;
   };
 

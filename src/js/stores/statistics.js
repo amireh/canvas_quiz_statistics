@@ -62,6 +62,22 @@ define(function(require) {
       return quizReports;
     },
 
+    actions: {
+      generateReport: function(reportType, onChange, onError) {
+        Adapter.request({
+          type: 'POST',
+          url: config.quizReportsUrl,
+          data: {
+            quiz_reports: [{
+              report_type: reportType,
+              includes_all_versions: true
+            }],
+            include: ['progress', 'file']
+          }
+        }).then(onChange, onError);
+      }
+    },
+
     __reset__: function() {
       data = {};
       quizReports = [];

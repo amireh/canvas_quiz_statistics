@@ -7,6 +7,14 @@ define(function(require) {
     request: function(options) {
       var ajax = config.ajax || rawAjax;
 
+      options.headers = options.headers || {};
+      options.headers['Content-Type'] = 'application/json';
+      options.headers['Accept'] = 'application/vnd.api+json';
+
+      if (config.apiToken) {
+        options.headers.Authorization = 'Bearer ' + config.apiToken;
+      }
+
       return RSVP.Promise.cast(ajax(options));
     }
   };

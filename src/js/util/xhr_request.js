@@ -46,7 +46,14 @@ define(function(require) {
       };
 
       xhr.open(method, url, async);
-      xhr.send(data);
+
+      if (options.headers) {
+        Object.keys(options.headers).forEach(function(header) {
+          xhr.setRequestHeader(header, options.headers[header]);
+        });
+      }
+
+      xhr.send(JSON.stringify(data));
     });
   };
 });

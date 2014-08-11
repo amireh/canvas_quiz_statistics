@@ -34,6 +34,8 @@
       require([ 'boot' ], function(app) {
         window.App = app;
 
+        app.config.apiToken = 'pOYZSthwwejYP7779HtgLGlL6BFZXC72KwbMbD54gm4d5NOzBov6Hma6VHvf0pJy';
+
         // You can hit against the actual Canvas API if you got reverse proxy
         // going on:
         //
@@ -41,7 +43,9 @@
 
         // Or just use the fixtures for speed:
         app.config.quizStatisticsUrl = '/fixtures/quiz_statistics_all_types.json';
-        app.config.quizReportsUrl = '/fixtures/quiz_reports.json';
+
+        // app.config.quizReportsUrl = '/fixtures/quiz_reports.json';
+        app.config.quizReportsUrl = '/api/v1/courses/1/quizzes/8/reports';
 
         app.mount(document.body.querySelector('#main'));
       });
