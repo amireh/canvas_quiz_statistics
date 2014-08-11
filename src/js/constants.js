@@ -37,6 +37,13 @@ define(function() {
       'point_biserials'
     ],
 
+    POINT_BISERIAL_ATTRS: [
+      'answer_id',
+      'correct',
+      'distractor',
+      'point_biserial',
+    ],
+
     QUIZ_REPORT_ATTRS: [
       'id',
       'report_type',

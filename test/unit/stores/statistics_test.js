@@ -10,19 +10,22 @@ define(function(require) {
 
   describe('Stores.Statistics', function() {
     this.promiseSuite = true;
-    this.xhrSuite = true;
+
+    beforeEach(function() {
+      config.quizStatisticsUrl = '/stats';
+      config.quizReportsUrl = '/reports';
+    });
 
     afterEach(function() {
       Subject.__reset__();
     });
 
     describe('#load', function() {
+      this.xhrSuite = true;
+
       it('should load and deserialize stats and reports', function() {
         var onChange = jasmine.createSpy('onChange');
         var quizStats, quizReports;
-
-        config.quizStatisticsUrl = '/stats';
-        config.quizReportsUrl = '/reports';
 
         this.respondWith('GET', '/stats', xhrResponse(200, quizStatisticsFixture));
         this.respondWith('GET', '/reports', xhrResponse(200, quizReportsFixture));
@@ -43,5 +46,43 @@ define(function(require) {
         expect(onChange).toHaveBeenCalled();
       });
     });
+
+    describe('actions.generateReport', function() {
+      this.xhrSuite = {
+        trackRequests: true
+      };
+
+      it('should work', function() {
+        var onChange = jasmine.createSpy('onChange');
+        var onError = jasmine.createSpy('onError');
+
+        // TODO: some better interface for testing actions pls
+        Subject.actions.generateReport.call(Subject, 'student_analysis', onChange, onError);
+
+        expect(this.requests.length).toBe(1);
+        expect(this.lastRequest.url).toBe('/reports');
+        expect(this.lastRequest.method).toBe('POST');
+        expect(this.lastRequest.requestBody).toEqual(JSON.stringify({
+          quiz_reports: [{
+            report_type: 'student_analysis',
+            includes_all_versions: true
+          }],
+          include: [ 'progress', 'file' ]
+        }));
+
+        this.respondTo(this.lastRequest, 200, {}, {
+          quiz_reports: [{
+            id: '200',
+            progress: {
+              workflow_state: 'foobar'
+            }
+          }]
+        });
+
+        expect(Subject.getQuizReports()[0].progress.workflowState).toBe('foobar');
+
+        expect(onChange).toHaveBeenCalled();
+      });
+    })
   });
 });

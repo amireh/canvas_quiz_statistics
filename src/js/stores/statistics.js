@@ -2,12 +2,13 @@ define(function(require) {
   var Store = require('../core/store');
   var Adapter = require('../core/adapter');
   var config = require('../config');
+  var K = require('../constants');
   var RSVP = require('rsvp');
-  var deserialize = require('./statistics/deserialize');
-  var deserializeReports = require('./statistics/deserialize_reports');
-  var data = {};
-  var quizReports = [];
+  var QuizReports = require('../collections/quiz_reports');
+  var QuizStats = require('../collections/quiz_statistics');
   var onError = config.onError;
+  var quizReports = new QuizReports();
+  var quizStats = new QuizStats([]);
 
   var store = new Store('statistics', {
     /**
@@ -31,14 +32,14 @@ define(function(require) {
         type: 'GET',
         url: config.quizStatisticsUrl
       }).then(function(quizStatisticsPayload) {
-        data = deserialize(quizStatisticsPayload);
+        quizStats.reset(quizStatisticsPayload, { parse: true });
       });
 
       reports = Adapter.request({
         type: 'GET',
         url: config.quizReportsUrl
       }).then(function(quizReportsPayload) {
-        quizReports = deserializeReports(quizReportsPayload);
+        quizReports.add(quizReportsPayload, { parse: true });
       });
 
       return RSVP.all([ stats, reports ]).then(function() {
@@ -47,19 +48,25 @@ define(function(require) {
     },
 
     getQuizStatistics: function() {
-      return data.quizStatistics;
+      if (quizStats.length) {
+        return quizStats.first().pick(K.QUIZ_STATISTICS_ATTRS);
+      }
     },
 
     getSubmissionStatistics: function() {
-      return data.submissionStatistics;
+      if (quizStats.length) {
+        return quizStats.first().get('submissionStatistics');
+      }
     },
 
     getQuestionStatistics: function() {
-      return data.questionStatistics;
+      if (quizStats.length) {
+        return quizStats.first().get('questionStatistics');
+      }
     },
 
     getQuizReports: function() {
-      return quizReports;
+      return quizReports.toJSON();
     },
 
     actions: {
@@ -74,13 +81,16 @@ define(function(require) {
             }],
             include: ['progress', 'file']
           }
-        }).then(onChange, onError);
+        }).then(function(quizReportsPayload) {
+          quizReports.add(quizReportsPayload, { parse: true });
+          onChange();
+        }, onError);
       }
     },
 
     __reset__: function() {
-      data = {};
-      quizReports = [];
+      quizStats.reset();
+      quizReports.reset();
       return Store.prototype.__reset__.call(this);
     }
   });
