@@ -2,7 +2,7 @@
 
 A quiz statistics mini-app for Canvas, the LMS by Instructure.
 
-See the [development guide](wiki/Development-Guide) to get started.
+See the [development guide](https://github.com/amireh/canvas_quiz_statistics/wiki/Development-Guide) to get started.
 
 ## Dependencies
 
