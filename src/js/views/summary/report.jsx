@@ -1,11 +1,19 @@
 /** @jsx React.DOM */
 define(function(require) {
   var React = require('../../ext/react');
+  var $ = require('canvas_packages/tooltip');
+
   var Report = React.createClass({
     mixins: [ React.addons.ActorMixin ],
 
     propTypes: {
       generatable: React.PropTypes.bool
+    },
+
+    getInitialState: function() {
+      return {
+        tooltipContent: null
+      };
     },
 
     getDefaultProps: function() {
@@ -14,6 +22,22 @@ define(function(require) {
         generatable: false,
         downloadUrl: undefined
       };
+    },
+
+    componentDidMount: function() {
+      $(this.getDOMNode()).tooltip({
+        content: function() {
+          return this.state.tooltipContent;
+        }.bind(this)
+      });
+    },
+
+    componentDidUpdate: function(prevProps, prevState) {
+
+    },
+
+    componentWillUnmount: function() {
+      $(this.getDOMNode()).tooltip('destroy');
     },
 
     render: function() {
@@ -29,7 +53,7 @@ define(function(require) {
 
     renderGenerator: function() {
       return (
-        <button onClick={this.onGenerate} className="btn btn-link generate-report">
+        <button title="adooken" onClick={this.onGenerate} className="btn btn-link generate-report">
           <i className="icon-analytics" /> {this.props.readableType}
         </button>
       );

@@ -4,7 +4,7 @@ module.exports = {
   jsx: [ 'tmp/compiled/jsx/**/*.js' ],
   options: {
     force: true,
-    jshintrc: '.jshintrc',
+    jshintrc: 'test/.jshintrc',
     '-W098': true,
     reporter: require('jshint-stylish-ex')
   }

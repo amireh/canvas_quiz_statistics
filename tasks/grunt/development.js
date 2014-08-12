@@ -6,6 +6,8 @@ module.exports = {
     shell.exec('cd www/; ln -s ../src ./');
     shell.exec('cd www/; ln -s ../vendor ./');
     shell.exec('cd www/; ln -s ../dist ./');
+    shell.exec('cd www/; ln -s ../vendor/canvas/public/font ./');
+    shell.exec('cd www/; ln -s ../vendor/canvas/public/images ./');
     shell.exec('cd www/; ln -s ../test/fixtures ./');
 
     grunt.task.run('compile_css');
